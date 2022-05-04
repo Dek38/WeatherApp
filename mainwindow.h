@@ -15,6 +15,7 @@
 #include <QFile>
 #include <QJsonArray>
 #include <csignal>
+#include <QLabel>
 
 #include "userSettings.h"
 
@@ -41,6 +42,12 @@ private:
     QPixmap m_HumdImage;
     QPixmap m_WindSpeedImage;
     QPixmap m_CurrentWeather;
+    QPixmap m_LettersOfTime [8];
+    QPixmap m_LettersOfDate [6];
+    QLabel m_LabelsForTime [8];
+    QLabel m_LabelsForDate [6];
+
+
     QNetworkAccessManager *manager;
     QNetworkRequest request;
     QByteArray buffer;
@@ -48,5 +55,7 @@ private:
     Ui::MainWindow *ui;
     QTimer *timerConnectTimeout;
     QTimer *timer;
+
+    void TimeResolver(char charOfCurrentTime, QString& result);
 };
 #endif // MAINWINDOW_H
