@@ -28,13 +28,26 @@ MainWindow::MainWindow(QWidget *parent)
     QString val;
 
     ui->setupUi(this);
-    QFile file;
-    file.setFileName("city.list.json");
-    file.open(QIODevice::ReadOnly);
-    val = file.readAll();
-    file.close();
+    connect (this, &MainWindow::quitSignal, this, &MainWindow::on_actionQuit_triggered);
+
+    try
     {
-    /*QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
+        QFile file;
+        file.setFileName("city.list.json");
+        if (!file.open(QIODevice::ReadOnly))
+        {
+            throw(QString("Can't open file"));
+        }
+        val = file.readAll();
+        file.close();
+    }
+    catch(QString mess)
+    {
+        qDebug() << mess;
+        return;
+    }
+    {
+    QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
 
     if (d.isArray())
     {
@@ -42,7 +55,7 @@ MainWindow::MainWindow(QWidget *parent)
        QJsonArray ja = d.array();
        QJsonObject subtree;
        QString str;
-       for (int i = 0; i < 100; i++)
+       for (int i = 0; i < ja.size(); i++)
        {
            subtree = ja.at(i).toObject();
            //if (subtree.value("country").toString() == "RU")
@@ -52,7 +65,7 @@ MainWindow::MainWindow(QWidget *parent)
                 ui->cityListWidget->addItem(str);
            }
        }
-    }*/
+    }
     }
     qDebug()<<ui->cityListWidget->count();
     m_TempImage = QPixmap("WeatherIcon\\celsius.png");
@@ -93,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent)
     request.setUrl(QUrl("http://api.openweathermap.org/data/2.5/weather?id=3333218&mode=JSON&units=metric&appid=" + USER_ID + "&lang=ru"));
     manager->get(request);
     timer->start(1000);
-    ui->currentCity->setText("Murino 524311");
+    //ui->currentCity->setText("Murino 524311");
 
 }
 
@@ -324,9 +337,6 @@ void MainWindow::slotTimerTimeout()
         }
     }
 
-
-    ui->lastUpdate->setText(std::ctime(&result));
-
 }
 
 
@@ -353,7 +363,6 @@ void MainWindow::on_cityListWidget_itemDoubleClicked(QListWidgetItem *item)
 
     ui->currentCity->setText(item->text());
     std::time_t result = std::time(nullptr);
-    ui->lastUpdate->setText(std::ctime(&result));
     request.setUrl(QUrl("http://api.openweathermap.org/data/2.5/weather?id=" + m_cityId + "&mode=JSON&units=metric&appid=" + USER_ID + "&lang=ru"));
     manager->get(request);
     timer->start(1000);

@@ -31,6 +31,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
+
+
 private slots:
     void on_actionQuit_triggered();
     void slotTimerTimeout();
@@ -51,11 +54,14 @@ private:
     QNetworkAccessManager *manager;
     QNetworkRequest request;
     QByteArray buffer;
-    QString m_cityId = "524311";
+    QString m_cityId = "3333218";
     Ui::MainWindow *ui;
     QTimer *timerConnectTimeout;
     QTimer *timer;
 
     void TimeResolver(char charOfCurrentTime, QString& result);
+
+signals:
+    void quitSignal();
 };
 #endif // MAINWINDOW_H
