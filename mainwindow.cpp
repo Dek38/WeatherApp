@@ -92,9 +92,6 @@ MainWindow::MainWindow(QWidget *parent)
         ui->timeLayout->addWidget(&m_LabelsForTime[i]);
     }
 
-
-
-
     val.resize(1);
 
     manager = new QNetworkAccessManager(this);
@@ -106,7 +103,6 @@ MainWindow::MainWindow(QWidget *parent)
     request.setUrl(QUrl("http://api.openweathermap.org/data/2.5/weather?id=3333218&mode=JSON&units=metric&appid=" + USER_ID + "&lang=ru"));
     manager->get(request);
     timer->start(1000);
-    //ui->currentCity->setText("Murino 524311");
 
 }
 
@@ -136,81 +132,50 @@ void MainWindow::managerFinished(QNetworkReply *reply)
         if (switchStr == "01d")
         {
             m_CurrentWeather = QPixmap("WeatherIcon\\sun.png");
-            m_CurrentWeather = m_CurrentWeather.scaled(100, 100);
-            ui->currentWeather->setText(ja.at(0).toObject().value("description").toString());
-            ui->currentWeather->setPixmap(m_CurrentWeather);
         }
         else if (switchStr == "01n")
         {
             m_CurrentWeather = QPixmap("WeatherIcon\\moon.png");
-            m_CurrentWeather = m_CurrentWeather.scaled(100, 100);
-            ui->currentWeather->setText(ja.at(0).toObject().value("description").toString());
-            ui->currentWeather->setPixmap(m_CurrentWeather);
         }
         else if (switchStr == "02d")
         {
             m_CurrentWeather = QPixmap("WeatherIcon\\cloudy-day.png");
-            m_CurrentWeather = m_CurrentWeather.scaled(100, 100);
-            ui->currentWeather->setText(ja.at(0).toObject().value("description").toString());
-            ui->currentWeather->setPixmap(m_CurrentWeather);
         }
         else if (switchStr == "02n")
         {
             m_CurrentWeather = QPixmap("WeatherIcon\\cloudy-night.png");
-            m_CurrentWeather = m_CurrentWeather.scaled(100, 100);
-            ui->currentWeather->setText(ja.at(0).toObject().value("description").toString());
-            ui->currentWeather->setPixmap(m_CurrentWeather);
         }
         else if (switchStr == "03d" || switchStr == "03n")
         {
             m_CurrentWeather = QPixmap("WeatherIcon\\cloud.png");
-            m_CurrentWeather = m_CurrentWeather.scaled(100, 100);
-            ui->currentWeather->setText(ja.at(0).toObject().value("description").toString());
-            ui->currentWeather->setPixmap(m_CurrentWeather);
         }
         else if (switchStr == "04d" || switchStr == "04n")
         {
             m_CurrentWeather = QPixmap("WeatherIcon\\cloud(1).png");
-            m_CurrentWeather = m_CurrentWeather.scaled(100, 100);
-            ui->currentWeather->setText(ja.at(0).toObject().value("description").toString());
-            ui->currentWeather->setPixmap(m_CurrentWeather);
         }
         else if (switchStr == "09d" || switchStr == "09n")
         {
             m_CurrentWeather = QPixmap("WeatherIcon\\rain.png");
-            m_CurrentWeather = m_CurrentWeather.scaled(100, 100);
-            ui->currentWeather->setText(ja.at(0).toObject().value("description").toString());
-            ui->currentWeather->setPixmap(m_CurrentWeather);
         }
         else if (switchStr == "10d" || switchStr == "10n")
         {
             m_CurrentWeather = QPixmap("WeatherIcon\\weather.png");
-            m_CurrentWeather = m_CurrentWeather.scaled(100, 100);
-            ui->currentWeather->setText(ja.at(0).toObject().value("description").toString());
-            ui->currentWeather->setPixmap(m_CurrentWeather);
         }
         else if (switchStr == "11d" || switchStr == "11n")
         {
             m_CurrentWeather = QPixmap("WeatherIcon\\thunderstorm.png");
-            m_CurrentWeather = m_CurrentWeather.scaled(100, 100);
-            ui->currentWeather->setText(ja.at(0).toObject().value("description").toString());
-            ui->currentWeather->setPixmap(m_CurrentWeather);
         }
         else if (switchStr == "13d" || switchStr == "13n")
         {
             m_CurrentWeather = QPixmap("WeatherIcon\\snow.png");
-            m_CurrentWeather = m_CurrentWeather.scaled(100, 100);
-            ui->currentWeather->setText(ja.at(0).toObject().value("description").toString());
-            ui->currentWeather->setPixmap(m_CurrentWeather);
         }
         else if (switchStr == "50d" || switchStr == "50n")
         {
             m_CurrentWeather = QPixmap("WeatherIcon\\wind.png");
-            m_CurrentWeather = m_CurrentWeather.scaled(100, 100);
-            ui->currentWeather->setText(ja.at(0).toObject().value("description").toString());
-            ui->currentWeather->setPixmap(m_CurrentWeather);
         }
-
+        m_CurrentWeather = m_CurrentWeather.scaled(100, 100);
+        ui->currentWeather->setText(ja.at(0).toObject().value("description").toString());
+        ui->currentWeather->setPixmap(m_CurrentWeather);
     }
 }
 
@@ -221,75 +186,18 @@ MainWindow::~MainWindow()
 
 void MainWindow::TimeResolver(char charOfCurrentTime, QString& result)
 {
-
-    switch(charOfCurrentTime)
+    if ((charOfCurrentTime != ':') && (charOfCurrentTime != ' '))
     {
-        case '0': result = "WeatherIcon\\zero.png"; break;
-        case '1': result = "WeatherIcon\\number-1.png"; break;
-        case '2': result = "WeatherIcon\\number-2.png"; break;
-        case '3': result = "WeatherIcon\\number-3.png"; break;
-        case '4': result = "WeatherIcon\\number-four.png"; break;
-        case '5': result = "WeatherIcon\\number-5.png"; break;
-        case '6': result = "WeatherIcon\\six.png"; break;
-        case '7': result = "WeatherIcon\\seven.png"; break;
-        case '8': result = "WeatherIcon\\number-8.png"; break;
-        case '9': result = "WeatherIcon\\number-9.png"; break;
-        case 'a': result = "WeatherIcon\\letter-a.png"; break;
-        case 'b': result = "WeatherIcon\\letter-b.png"; break;
-        case 'c': result = "WeatherIcon\\letter-c.png"; break;
-        case 'd': result = "WeatherIcon\\letter-d.png"; break;
-        case 'e': result = "WeatherIcon\\letter-e.png"; break;
-        case 'f': result = "WeatherIcon\\letter-f.png"; break;
-        case 'g': result = "WeatherIcon\\letter-g.png"; break;
-        case 'h': result = "WeatherIcon\\letter-h.png"; break;
-        case 'i': result = "WeatherIcon\\letter-i.png"; break;
-        case 'j': result = "WeatherIcon\\letter-j.png"; break;
-        case 'k': result = "WeatherIcon\\letter-k.png"; break;
-        case 'l': result = "WeatherIcon\\letter-l.png"; break;
-        case 'm': result = "WeatherIcon\\letter-m.png"; break;
-        case 'n': result = "WeatherIcon\\letter-n.png"; break;
-        case 'o': result = "WeatherIcon\\letter-o.png"; break;
-        case 'p': result = "WeatherIcon\\letter-p.png"; break;
-        case 'q': result = "WeatherIcon\\letter-q.png"; break;
-        case 'r': result = "WeatherIcon\\letter-r.png"; break;
-        case 's': result = "WeatherIcon\\letter-s.png"; break;
-        case 't': result = "WeatherIcon\\letter-t.png"; break;
-        case 'u': result = "WeatherIcon\\letter-u.png"; break;
-        case 'v': result = "WeatherIcon\\letter-v.png"; break;
-        case 'w': result = "WeatherIcon\\letter-w.png"; break;
-        case 'x': result = "WeatherIcon\\letter-x.png"; break;
-        case 'y': result = "WeatherIcon\\letter-y.png"; break;
-        case 'z': result = "WeatherIcon\\letter-z.png"; break;
-        case 'A': result = "WeatherIcon\\letter-a.png"; break;
-        case 'B': result = "WeatherIcon\\letter-b.png"; break;
-        case 'C': result = "WeatherIcon\\letter-c.png"; break;
-        case 'D': result = "WeatherIcon\\letter-d.png"; break;
-        case 'E': result = "WeatherIcon\\letter-e.png"; break;
-        case 'F': result = "WeatherIcon\\letter-f.png"; break;
-        case 'G': result = "WeatherIcon\\letter-g.png"; break;
-        case 'H': result = "WeatherIcon\\letter-h.png"; break;
-        case 'I': result = "WeatherIcon\\letter-i.png"; break;
-        case 'J': result = "WeatherIcon\\letter-j.png"; break;
-        case 'K': result = "WeatherIcon\\letter-k.png"; break;
-        case 'L': result = "WeatherIcon\\letter-l.png"; break;
-        case 'M': result = "WeatherIcon\\letter-m.png"; break;
-        case 'N': result = "WeatherIcon\\letter-n.png"; break;
-        case 'O': result = "WeatherIcon\\letter-o.png"; break;
-        case 'P': result = "WeatherIcon\\letter-p.png"; break;
-        case 'Q': result = "WeatherIcon\\letter-q.png"; break;
-        case 'R': result = "WeatherIcon\\letter-r.png"; break;
-        case 'S': result = "WeatherIcon\\letter-s.png"; break;
-        case 'T': result = "WeatherIcon\\letter-t.png"; break;
-        case 'U': result = "WeatherIcon\\letter-u.png"; break;
-        case 'V': result = "WeatherIcon\\letter-v.png"; break;
-        case 'W': result = "WeatherIcon\\letter-w.png"; break;
-        case 'X': result = "WeatherIcon\\letter-x.png"; break;
-        case 'Y': result = "WeatherIcon\\letter-y.png"; break;
-        case 'Z': result = "WeatherIcon\\letter-z.png"; break;
-        case ':': result = "WeatherIcon\\colon.png"; break;
-        default: result = ""; break;
+        result = "WeatherIcon\\" + QString(charOfCurrentTime) + ".png";
     }
-
+    else if (charOfCurrentTime == ':')
+    {
+        result = "WeatherIcon\\colon.png";
+    }
+    else
+    {
+        result = "";
+    }
 }
 
 
@@ -362,7 +270,6 @@ void MainWindow::on_cityListWidget_itemDoubleClicked(QListWidgetItem *item)
     m_cityId = str;
 
     ui->currentCity->setText(item->text());
-    std::time_t result = std::time(nullptr);
     request.setUrl(QUrl("http://api.openweathermap.org/data/2.5/weather?id=" + m_cityId + "&mode=JSON&units=metric&appid=" + USER_ID + "&lang=ru"));
     manager->get(request);
     timer->start(1000);
